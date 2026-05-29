@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Christian Roadmap{% endblock %}
+
+{% block content %}
+<div class="roadmap-page">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; color: var(--text-main);">🗺️ The Christian Roadmap</h2>
+        <p class="text-muted">Your journey from new convert to established disciple.</p>
+    </div>
+
+    <div class="roadmap-levels" style="margin-bottom: 3rem;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--text-main);">Growth Levels</h3>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+            {% for level in levels %}
+            <div class="level-card" style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem;">
+                <div style="width: 50px; height: 50px; background: var(--brand-gradient); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.2rem;">{{ forloop.counter }}</div>
+                <div style="flex: 1;">
+                    <h4 style="color: var(--text-main); font-size: 1.2rem; margin-bottom: 0.25rem;">{{ level.title }}</h4>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">{{ level.description }}</p>
+                </div>
+                <button style="padding: 0.6rem 1.2rem; border-radius: 8px; border: 1px solid var(--accent-light-blue); background: transparent; color: var(--accent-blue); font-weight: 600; cursor: pointer;">View Sermons</button>
+            </div>
+            {% empty %}
+            <div style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 2rem; text-align: center; color: var(--text-muted);">
+                Roadmap levels coming soon.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="roadmap-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="skills-archive">
+            <h3 style="margin-bottom: 1rem; color: var(--text-main);">⚔️ Skill Archive</h3>
+            <div style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.5rem;">
+                {% for skill in skills %}
+                <div style="padding: 1rem 0; border-bottom: 1px solid var(--border-white);">
+                    <div style="color: var(--accent-blue); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">{{ skill.get_category_display }}</div>
+                    <div style="color: var(--text-main); font-weight: bold; margin-top: 0.25rem;">{{ skill.title }}</div>
+                </div>
+                {% empty %}
+                <p style="color: var(--text-muted);">No skills added yet.</p>
+                {% endfor %}
+                <button style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: rgba(29, 78, 216, 0.1); color: var(--accent-blue); border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Browse All Skills</button>
+            </div>
+        </div>
+
+        <div class="briefcase">
+            <h3 style="margin-bottom: 1rem; color: var(--text-main);">💼 Christian Briefcase</h3>
+            <div style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.5rem;">
+                {% for item in briefcase_items %}
+                <div style="padding: 1rem 0; border-bottom: 1px solid var(--border-white);">
+                    <div style="color: var(--accent-blue); font-weight: 600; font-size: 0.85rem; text-transform: uppercase;">{{ item.get_category_display }}</div>
+                    <div style="color: var(--text-main); font-weight: bold; margin-top: 0.25rem;">{{ item.title }}</div>
+                </div>
+                {% empty %}
+                <p style="color: var(--text-muted);">Briefcase is empty.</p>
+                {% endfor %}
+                <button style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: rgba(29, 78, 216, 0.1); color: var(--accent-blue); border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Open Briefcase</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

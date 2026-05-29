@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}{{ ministry.name }}{% endblock %}
+
+{% block content %}
+<div class="ministry-detail-page">
+    <div class="ministry-hero" style="background: {{ ministry.gradient }}; border-radius: 24px; padding: 4rem 2rem; text-align: center; color: white; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; overflow: hidden;">
+        <div style="position: relative; z-index: 2;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">{{ ministry.emoji }}</div>
+            <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; color: white;">{{ ministry.name }}</h1>
+            <p style="font-size: 1.2rem; font-weight: 500; opacity: 0.9;">{{ ministry.tagline }}</p>
+        </div>
+        <!-- Decorative background elements -->
+        <div style="position: absolute; top: -50%; left: -10%; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; filter: blur(40px);"></div>
+        <div style="position: absolute; bottom: -50%; right: -10%; width: 400px; height: 400px; background: rgba(0,0,0,0.1); border-radius: 50%; filter: blur(50px);"></div>
+    </div>
+
+    <div class="ministry-content" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+        <div class="main-column">
+            <div class="widget" style="background: var(--bg-card); border-radius: 16px; padding: 2rem; border: 1px solid var(--border-white);">
+                <h3 style="margin-bottom: 1rem; color: var(--text-main); font-size: 1.4rem;">About {{ ministry.name }}</h3>
+                <p style="color: var(--text-main); line-height: 1.8; font-size: 1.05rem;">{{ ministry.description }}</p>
+            </div>
+            
+            <div class="widget mt-4" style="background: var(--bg-card); border-radius: 16px; padding: 2rem; border: 1px solid var(--border-white); margin-top: 1.5rem;">
+                <h3 style="margin-bottom: 1.5rem; color: var(--text-main); font-size: 1.4rem;">Recent Updates</h3>
+                <div style="text-align: center; padding: 3rem; color: var(--text-muted); background: rgba(0,0,0,0.02); border-radius: 12px; border: 1px dashed var(--border-white);">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">📝</div>
+                    <p>No recent updates from {{ ministry.name }} yet.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-column">
+            <div class="widget" style="background: var(--bg-card); border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border-white);">
+                <h3 style="margin-bottom: 1rem; color: var(--text-main); font-size: 1.2rem;">Upcoming Meetings</h3>
+                <div style="padding: 1rem; border-bottom: 1px solid var(--border-white);">
+                    <div style="font-weight: 700; color: var(--text-main);">Weekly Gathering</div>
+                    <div style="color: var(--text-muted); font-size: 0.9rem;">Sundays at 10:30 AM</div>
+                </div>
+                <div style="padding: 1rem;">
+                    <div style="font-weight: 700; color: var(--text-main);">Monthly Prayer</div>
+                    <div style="color: var(--text-muted); font-size: 0.9rem;">Last Friday of the month</div>
+                </div>
+                <button style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: var(--accent-blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Join Ministry Group</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

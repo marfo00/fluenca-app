@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}KPI Rankings{% endblock %}
+
+{% block content %}
+<div class="rankings-page">
+    <div class="page-header">
+        <h2>📊 KPI Rankings</h2>
+        <p class="text-muted">Tracking faithfulness and fruitfulness across Fluenca</p>
+    </div>
+
+    <div class="rankings-grid">
+        <!-- Login Points Leaderboard -->
+        <div class="widget">
+            <h3>⭐ Login Consistency Rankings</h3>
+            <p class="text-muted" style="font-size:0.82rem; margin-bottom:1rem;">Rewarding those who show up daily for God.</p>
+            <div class="leaderboard">
+                {% for u in login_rankings %}
+                <div class="leaderboard-row {% if u == request.user %}highlight{% endif %}">
+                    <span class="rank-num">
+                        {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% elif forloop.counter == 3 %}🥉{% else %}{{ forloop.counter }}{% endif %}
+                    </span>
+                    <div class="rank-avatar">{{ u.username|first|upper }}</div>
+                    <span class="rank-name">{{ u.username }}{% if u == request.user %} <span style="color:var(--accent-light-blue)">(You)</span>{% endif %}</span>
+                    <span class="rank-pts gold">{{ u.login_points }} pts</span>
+                </div>
+                {% empty %}
+                <p class="text-muted">No rankings yet. Be the first to log in!</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Missions Rankings (Confidential) -->
+        <div class="widget">
+            <h3>🔥 Missions & Evangelism Rankings</h3>
+            <p class="text-muted" style="font-size:0.82rem; margin-bottom:1rem;">
+                <span class="badge badge-confidential">🔒 Confidential</span> — Real names are never revealed. Code names only.
+            </p>
+            <div class="leaderboard">
+                {% for m in missions_rankings %}
+                <div class="leaderboard-row">
+                    <span class="rank-num">
+                        {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% elif forloop.counter == 3 %}🥉{% else %}{{ forloop.counter }}{% endif %}
+                    </span>
+                    <div class="rank-avatar missions-avatar">⚔️</div>
+                    <span class="rank-name code-name">{{ m.missions_code_name }}</span>
+                    <span class="rank-pts blue">{{ m.missions_points }} pts</span>
+                </div>
+                {% empty %}
+                <p class="text-muted">No missions reports yet. Be bold — go out and evangelize!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Newsfeed{% endblock %}
+
+{% block content %}
+<div class="feed-wrapper">
+
+    <!-- Daily Verse -->
+    <div class="verse-card">
+        <div class="verse-card-header">
+            <span class="verse-badge">✨ Verse of the Day</span>
+        </div>
+        <blockquote class="verse-text">
+            "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
+        </blockquote>
+        <p class="verse-ref">— John 3:16</p>
+
+        <div class="cultivate-section">
+            <h4>📖 Cultivate a rhythm for this word</h4>
+            <p class="cultivate-desc">Take a few minutes to reflect on this truth. Let it sink deep into your spirit and guide your steps today.</p>
+            <div class="video-embed-placeholder">
+                <div class="play-btn">▶</div>
+                <p>Watch today's devotional (2–5 min)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Feed -->
+    <div class="feed-posts">
+        <div class="post-card">
+            <div class="post-header">
+                <div class="post-avatar">A</div>
+                <div class="post-meta">
+                    <span class="post-author">Admin</span>
+                    <span class="post-time">2 hours ago</span>
+                </div>
+                <div class="post-type-badge gospel">Gospel News</div>
+            </div>
+            <div class="post-content">
+                <p>Brothers and sisters, the evangelism drive this quarter has seen 47 souls won for Christ in our district! To God be all the glory! 🙌</p>
+            </div>
+            <div class="post-actions">
+                <button class="reaction-btn" onclick="toggleReactions(this)">
+                    <span class="reaction-icon">🙏</span>
+                    <span class="reaction-count">24</span>
+                </button>
+                <div class="reaction-picker hidden">
+                    <span class="reaction-opt" title="Like">👍</span>
+                    <span class="reaction-opt" title="Amen">🙏</span>
+                    <span class="reaction-opt" title="Fire">🔥</span>
+                    <span class="reaction-opt" title="Heart">❤️</span>
+                    <span class="reaction-opt" title="Praise">🙌</span>
+                </div>
+                <button class="comment-btn">💬 Comment</button>
+                <button class="share-btn">↗️ Share</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

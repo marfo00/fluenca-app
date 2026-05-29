@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fluenca{% endblock %} | Where the Gospel Flows</title>
+    <meta name="description" content="Fluenca - A platform to grow in Christ, glorify God and make Him revealed to all nations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+{% block fullpage %}
+<!-- Navbar (only shown when logged in) -->
+{% if user.is_authenticated %}
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="{% url 'home' %}" style="text-decoration:none;">
+            <span class="brand-text">Fluenca</span>
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <a href="{% url 'home' %}" class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">🏠 Feed</a>
+        <a href="{% url 'ministries' %}" class="nav-item {% if 'ministr' in request.resolver_match.url_name %}active{% endif %}">⛪ Ministries</a>
+        <a href="{% url 'roadmap' %}" class="nav-item {% if 'roadmap' in request.resolver_match.url_name %}active{% endif %}">🗺️ Roadmap</a>
+        <a href="{% url 'challenges' %}" class="nav-item {% if 'challenges' in request.resolver_match.url_name %}active{% endif %}">🏆 Challenges</a>
+        <a href="{% url 'rankings' %}" class="nav-item {% if 'rankings' in request.resolver_match.url_name %}active{% endif %}">📊 Rankings</a>
+    </div>
+    <div class="navbar-user">
+        <div class="user-kpi">
+            <span class="points-title">Points</span>
+            <span class="points-value">{{ user.login_points }}</span>
+            <span class="kpi-badge">🌟 Active</span>
+        </div>
+        <a href="{% url 'profile' %}" class="profile-pic-link">
+            <div class="profile-pic">
+                {% if user.profile_photo %}
+                    <img src="{{ user.profile_photo.url }}" alt="{{ user.username }}">
+                {% else %}
+                    <span class="profile-initials">{{ user.username|first|upper }}</span>
+                {% endif %}
+            </div>
+        </a>
+    </div>
+</nav>
+
+<div class="main-layout">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-user-card">
+            <div class="sidebar-avatar">{{ user.username|first|upper }}</div>
+            <div class="sidebar-user-info">
+                <div class="sidebar-username">{{ user.username }}</div>
+                <div class="sidebar-pts">{{ user.login_points }} pts</div>
+            </div>
+        </div>
+        <div class="sidebar-divider"></div>
+        <a href="{% url 'home' %}" class="sidebar-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">🏠 Newsfeed</a>
+        <a href="{% url 'profile' %}" class="sidebar-item">👤 My Profile</a>
+        <a href="{% url 'rankings' %}" class="sidebar-item">📊 KPI Rankings</a>
+        <a href="{% url 'roadmap' %}" class="sidebar-item">🛕 Christian Roadmap</a>
+        <a href="{% url 'challenges' %}" class="sidebar-item">🏆 Challenges</a>
+        <a href="{% url 'recordings' %}" class="sidebar-item">🎥 Recordings</a>
+        <a href="{% url 'songs' %}" class="sidebar-item">🎵 Songs Archive</a>
+        <a href="{% url 'noticeboard' %}" class="sidebar-item">📅 Noticeboard</a>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-section-label">Ministries</div>
+        <a href="{% url 'ministries' %}" class="sidebar-item">⛪ All Ministries</a>
+        <a href="{% url 'ministry_detail' 'youth' %}" class="sidebar-item ministry-item youth">🎯 Youth Ministry</a>
+        <a href="{% url 'ministry_detail' 'women' %}" class="sidebar-item ministry-item women">🌸 Women's Ministry</a>
+        <a href="{% url 'ministry_detail' 'pemem' %}" class="sidebar-item ministry-item pemem">⚙️ PEMEM</a>
+        <a href="{% url 'ministry_detail' 'children' %}" class="sidebar-item ministry-item children">⭐ Children</a>
+        <a href="{% url 'ministry_detail' 'ham' %}" class="sidebar-item ministry-item ham">📖 HAM</a>
+        <div class="sidebar-divider"></div>
+        <a href="{% url 'logout' %}" class="sidebar-item logout-item">🚪 Logout</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content-area">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="widget">
+            <h3>⚡ Quick Stats</h3>
+            <div class="stat-row">
+                <span class="stat-label">Login Points</span>
+                <span class="stat-value gold">{{ user.login_points }}</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Mission Points</span>
+                <span class="stat-value blue">{{ user.missions_points }}</span>
+            </div>
+        </div>
+        <div class="widget">
+            <h3>📅 Upcoming Events</h3>
+            <div class="event-item">Sunday Service — 8:00 AM</div>
+            <div class="event-item">Youth Vigil — Friday</div>
+            <div class="event-item">Bible Study — Wednesday</div>
+        </div>
+        <div class="widget">
+            <h3>🏆 Top Members</h3>
+            <p class="text-muted" style="font-size:0.85rem; padding-top: 0.5rem;">
+                <a href="{% url 'rankings' %}" style="color: var(--accent-light-blue); text-decoration: none;">View full KPI rankings →</a>
+            </p>
+        </div>
+    </aside>
+</div>
+{% endif %}
+
+{% if not user.is_authenticated %}
+{% block fullpage_content %}{% endblock %}
+{% endif %}
+{% endblock %}
+
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

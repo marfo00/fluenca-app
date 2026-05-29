@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Songs Archive{% endblock %}
+
+{% block content %}
+<div class="community-page">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; color: var(--text-main);">🎵 Pentecost Songs</h2>
+        <p class="text-muted">A collection of hymns and spiritual songs to enrich your worship.</p>
+    </div>
+
+    <div class="songs-list" style="display: flex; flex-direction: column; gap: 1rem;">
+        {% for song in songs %}
+        <div class="song-card" style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(29, 78, 216, 0.1); color: var(--accent-blue); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">🎵</div>
+                <div>
+                    <h3 style="margin-bottom: 0.25rem; color: var(--text-main); font-size: 1.1rem;">{{ song.title }}</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem;">Added {{ song.created_at|date:"M Y" }}</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+                {% if song.lyrics %}
+                <button style="padding: 0.6rem 1.2rem; border-radius: 8px; border: 1px solid var(--border-white); background: transparent; color: var(--text-main); font-weight: 600; cursor: pointer;">Lyrics</button>
+                {% endif %}
+                {% if song.audio_url %}
+                <button style="padding: 0.6rem 1.2rem; border-radius: 8px; border: none; background: var(--accent-blue); color: white; font-weight: 600; cursor: pointer;">Listen</button>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 3rem; text-align: center; color: var(--text-muted);">
+            No songs in the archive yet.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

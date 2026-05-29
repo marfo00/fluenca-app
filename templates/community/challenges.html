@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Challenges{% endblock %}
+
+{% block content %}
+<div class="community-page">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; color: var(--text-main);">🏆 Active Challenges</h2>
+        <p class="text-muted">Participate in challenges to grow your faith and earn points!</p>
+    </div>
+
+    <div class="challenges-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% for challenge in challenges %}
+        <div class="challenge-card" style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <span style="background: rgba(29, 78, 216, 0.1); color: var(--accent-blue); padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">{{ challenge.get_category_display }}</span>
+                <span style="color: #FFD700; font-weight: bold;">+{{ challenge.points_reward }} pts</span>
+            </div>
+            <h3 style="margin-bottom: 0.5rem; color: var(--text-main);">{{ challenge.title }}</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">{{ challenge.description }}</p>
+            {% if challenge.active_until %}
+            <p style="font-size: 0.8rem; color: var(--accent-light-blue); margin-bottom: 1rem;">Ends: {{ challenge.active_until }}</p>
+            {% endif %}
+            <button style="width: 100%; padding: 0.8rem; background: var(--accent-blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Join Challenge</button>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1 / -1; background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 3rem; text-align: center; color: var(--text-muted);">
+            No active challenges at the moment. Check back soon!
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

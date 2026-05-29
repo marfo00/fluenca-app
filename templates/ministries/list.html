@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Ministries{% endblock %}
+
+{% block content %}
+<div class="ministries-page">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; color: var(--text-main);">⛪ Our Ministries</h2>
+        <p class="text-muted">Find your community, grow together, and serve with purpose.</p>
+    </div>
+
+    <div class="ministries-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+        {% for slug, min in ministries.items %}
+        <a href="{% url 'ministry_detail' slug %}" class="ministry-card" style="text-decoration: none; display: block;">
+            <div class="card-inner" style="background: var(--bg-card); border: 1px solid var(--border-white); border-radius: 16px; padding: 2rem; height: 100%; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <div class="ministry-icon" style="font-size: 3rem; margin-bottom: 1rem;">{{ min.emoji }}</div>
+                <h3 style="color: var(--text-main); font-size: 1.4rem; margin-bottom: 0.5rem; background: {{ min.gradient }}; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ min.name }}</h3>
+                <p style="color: var(--text-muted); font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem;">{{ min.tagline }}</p>
+                <p style="color: var(--text-main); font-size: 0.95rem; line-height: 1.6; opacity: 0.8;">{{ min.description|truncatewords:20 }}</p>
+                <div style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--accent-blue); font-weight: 700;">Explore Ministry →</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.ministry-card:hover .card-inner {
+    transform: translateY(-5px);
+    border-color: var(--accent-light-blue);
+    box-shadow: 0 10px 30px rgba(29, 78, 216, 0.1);
+}
+</style>
+{% endblock %}
